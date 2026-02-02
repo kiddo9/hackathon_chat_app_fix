@@ -19,7 +19,7 @@ window.addEventListener("load", () => {
   loader.classList.remove("hidden");
 
   if (!loadAuthUser) {
-    window.location.href = `/src/login.html`;
+    window.location.href = `./login.html`;
     return;
   }
 
@@ -48,7 +48,7 @@ logout.addEventListener("click", () => {
     proceed: () => {
       localStorage.removeItem("auth");
       localStorage.removeItem("user");
-      window.location.href = `/src/login.html`;
+      window.location.href = `./login.html`;
     },
   });
 });
