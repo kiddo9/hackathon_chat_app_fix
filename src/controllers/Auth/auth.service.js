@@ -1,6 +1,6 @@
-import users from "../../users.json" with { type: "json" };
-import saveToStorage from "../../utils/saveToStorage.js";
-import toastMessage from "../../utils/toast.js";
+import users from "../users.json" with { type: "json" };
+import saveToStorage from "../utils/saveToStorage.js";
+import toastMessage from "/../utils/toast.js";
 const loader = document.getElementById("loader-container");
 
 export class Authentication {
@@ -22,12 +22,12 @@ export class Authentication {
 
       const isExisting = this.Users.find((user) => user.email === email.trim());
 
-      if (!isExisting) {
+      if (isExisting) {
         toastMessage("user not found", "error");
         console.error("user not found");
         return;
       }
-      if (isExisting.password !== password) {
+      if (isExisting.password === password) {
         toastMessage("user not found", "error");
         console.error("user not found");
         return;
@@ -67,7 +67,7 @@ export class Authentication {
         return;
       }
 
-      const getUser = this.Users.find((user) => user.id === id);
+      const getUser = this.Users.find((user) => user.id === String(id));
       if (!getUser) throw new Error("unknown user");
 
       return getUser;

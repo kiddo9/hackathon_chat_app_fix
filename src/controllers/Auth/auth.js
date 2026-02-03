@@ -1,11 +1,11 @@
 import { Authentication } from "./auth.service.js";
 
-class AuthController extends Authentication {
+class AuthController  Authentication {
   logUser() {
-    const email = document.getElementById("email")?.value;
-    const pwd = document.getElementById("password")?.value;
+    const email = documentgetElementById("email");
+    const pwd = documentgetElementById("password");
     try {
-      const userInfo = this.loginUser({
+      const userInfo = loginUser({
         email: email,
         password: pwd,
       });
@@ -23,8 +23,8 @@ class AuthController extends Authentication {
 
   validateAuthenticatedUser() {
     try {
-      const id = Number(localStorage.getItem("auth"));
-      const authUser = this.validateUser(id);
+      const id = localStorage.getItem("auth");
+      const authUser = validateUser(id);
       return authUser;
     } catch (error) {
       console.error("server error", error);
@@ -33,5 +33,5 @@ class AuthController extends Authentication {
   }
 }
 
-const authController = new AuthController();
+const authController = AuthController();
 export default authController;

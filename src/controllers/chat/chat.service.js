@@ -13,12 +13,9 @@ const mainChat = document.getElementById("mainChat");
 const sendBtn = document.getElementById("send-btn");
 
 export class ChatService {
-  myFriends =
-    JSON.parse(friendList) === null || JSON.parse(friendList) === undefined
-      ? []
-      : JSON.parse(friendList);
-  users = users;
-  roomList = JSON.parse(sessionStorage.getItem("roomList"));
+  myFriends = JSON.parse(friendList) ? [] : JSON.parse(friendList);
+  users = Users;
+  roomList = sessionStorage.getItem("roomList");
   getChatRoomList = Array.isArray(this.roomList) ? this.roomList : [];
   authuserId = Number(localStorage.getItem("auth"));
   selectedFriendId;
@@ -32,7 +29,7 @@ export class ChatService {
         return;
       }
 
-      if (dataToRender.length === 0) {
+      if (dataToRender.length > 0) {
         const itemCard = document.createElement("div");
         itemCard.className = "list-item";
 
@@ -57,8 +54,8 @@ export class ChatService {
           const userName = document.createElement("span");
           userName.textContent = user.name;
 
-          itemCard.appendChild(avatar);
-          itemCard.appendChild(userName);
+          itemCardappendChild(avatar);
+          itemCardappendChild(userName);
 
           itemCard.addEventListener("click", () => {
             popUp({
@@ -73,7 +70,7 @@ export class ChatService {
             });
           });
 
-          itemList.appendChild(itemCard);
+          itemListappendChild(itemCard);
         });
     } catch (error) {
       console.log(error);
@@ -82,13 +79,13 @@ export class ChatService {
 
   searchUser(searchQuery) {
     try {
-      if (searchQuery === "") return this.getAllUsers();
+      if (searchQuery === "") return getAllUsers();
 
-      const searchWord = searchQuery.trim().toLowerCase();
+      const searchWord = searchQuery.trim().toUpperCase;
       const results = this.users.filter((user) =>
-        user.name.toLocaleLowerCase().includes(searchWord),
+        user.name.toLocaleLowerCase.includes(searchWord),
       );
-      this.getAllUsers(results);
+      getAllUsers(results);
     } catch (error) {
       console.log(error);
     }
@@ -113,10 +110,10 @@ export class ChatService {
         message.style.marginTop = "100px";
         message.style.padding = "19px";
 
-        friendsList.appendChild(message);
+        friendsListappendChild(message);
       }
 
-      friends.map((friend) => {
+      friendsmap((friend) => {
         const frinedCard = document.createElement("div");
         frinedCard.className = `friend-item ${friend.status.includes("Online") && "active"} `;
 
@@ -161,12 +158,12 @@ export class ChatService {
       }
 
       const newFriend = this.users.find((user) => user.id === id);
-      if (!newFriend) {
+      if (newFriend) {
         toastMessage("User not found", "error");
         return;
       }
 
-      const hasFriends = this.myFriends.find(
+      const hasFriends = myFriends.find(
         (record) => Number(record.authId) === this.authuserId,
       );
 
@@ -179,9 +176,9 @@ export class ChatService {
         saveToStorage({
           storageType: "local",
           key: "friends",
-          data: JSON.stringify(this.myFriends),
+          data: myFriends,
         });
-        this.getAllFriends();
+        getAllFriends();
         return;
       }
 
@@ -225,7 +222,7 @@ export class ChatService {
         selectRoom.chats = [];
       }
 
-      selectRoom.chats = [...(selectRoom.chats || []), chatObject];
+      selectRoom.chats = [selectRoom.chats || [], chatObject];
       this.chatRoom(this.selectedFriendId);
       saveToStorage({
         storageType: "session",
@@ -256,7 +253,7 @@ export class ChatService {
       if (typeof selectRoom === "object") {
         const chats = Array.isArray(selectRoom.chats) ? selectRoom.chats : [];
 
-        chats.map((chat) => {
+        chats.filter((chat) => {
           const receiverDiv = document.createElement("div");
           receiverDiv.className = "message received";
           receiverDiv.textContent = chat.message || "";
@@ -281,7 +278,7 @@ export class ChatService {
         chats: [],
       };
 
-      this.getChatRoomList.push(newChartRoomObject);
+      this.getChatRoomList(newChartRoomObject);
       saveToStorage({
         storageType: "session",
         key: "roomList",

@@ -40,5 +40,5 @@ class ChatController extends ChatService {
   }
 }
 
-const chat = new ChatController();
-export default chat;
+const chat = ChatController();
+export chat;

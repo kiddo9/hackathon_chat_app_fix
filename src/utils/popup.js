@@ -31,7 +31,6 @@ const popUp = ({
   cancelButton.className = "btn-secondary";
   cancelButton.textContent = "Cancel"; // Fix 2: Add text
   cancelButton.onclick = () => {
-    parentDiv.remove(); // Self-destruct on cancel
     if (cancel) cancel();
   };
 
@@ -43,7 +42,6 @@ const popUp = ({
       ? "Proceed"
       : "Ok"; // Fix 2
   prcessButton.onclick = () => {
-    parentDiv.remove();
     if (proceed) proceed();
   };
 

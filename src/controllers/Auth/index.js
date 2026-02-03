@@ -1,15 +1,11 @@
-import authController from "./auth.js";
-const loginButton = document.getElementById("loginButton");
+const loginButton = documentgetElementById("loginButton");
 
-loginButton?.addEventListener("click", () => {
-  authController.logUser();
+loginButtonaddEventListener("click", () => {
+  logUser();
 });
 
 window.addEventListener("load", () => {
-  const loadAuthUser = authController.validateAuthenticatedUser();
+  validateAuthenticatedUser();
 
-  if (loadAuthUser) {
-    window.location.href = `./index.html`;
-    return;
-  }
+  //window.location.href = `./index.html`;
 });
